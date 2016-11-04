@@ -51,7 +51,8 @@ namespace MachineLearningActorSystem.Core
             return sb.ToString();
         }
 
-        public static string PrintValidationResultString(List<ClassifierModel> classifierModels, string dataSetName, object oResult)
+        public static string PrintValidationResultString(List<ClassifierModel> classifierModels, string dataSetName,
+            object oResult)
         {
             var sb = new StringBuilder();
             sb.AppendLine("----------------------------------------------");
@@ -62,30 +63,24 @@ namespace MachineLearningActorSystem.Core
             sb.AppendLine("----------------------------------------------");
 
             foreach (var cm in classifierModels)
-            {
                 sb.AppendLine(
                     "".PadLeft(9)
                     + cm.TrainingError.ToString("0.0000").PadLeft(17)
                     + cm.ValidationError.ToString("0.0000").PadLeft(19)
                 );
-            }
 
             sb.AppendLine("----------------------------------------------");
 
             if (oResult is BootstrapResult)
-            {
                 sb.AppendLine("         "
-                              + ((BootstrapResult)oResult).Training.Mean.ToString("0.0000").PadLeft(17)
-                              + ((BootstrapResult)oResult).Validation.Mean.ToString("0.0000").PadLeft(19)
+                              + ((BootstrapResult) oResult).Training.Mean.ToString("0.0000").PadLeft(17)
+                              + ((BootstrapResult) oResult).Validation.Mean.ToString("0.0000").PadLeft(19)
                 );
-            }
             else if (oResult is CrossValidationResult<object>)
-            {
                 sb.AppendLine("         "
-                              + ((CrossValidationResult<object>)oResult).Training.Mean.ToString("0.0000").PadLeft(17)
-                              + ((CrossValidationResult<object>)oResult).Validation.Mean.ToString("0.0000").PadLeft(19)
+                              + ((CrossValidationResult<object>) oResult).Training.Mean.ToString("0.0000").PadLeft(17)
+                              + ((CrossValidationResult<object>) oResult).Validation.Mean.ToString("0.0000").PadLeft(19)
                 );
-            }
 
             sb.AppendLine("----------------------------------------------");
 

@@ -1,0 +1,285 @@
+02.11.2016 00:08:10,344 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 00:08:10,365 [13] INFO  - RaceTrackQLearningEvent Received
+02.11.2016 00:08:10,365 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 00:08:10,365 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 00:08:36,815 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 00:08:36,830 [7] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 00:08:36,834 [6] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 00:08:36,842 [6] INFO  - RaceTrackQLearningEvent Received
+02.11.2016 00:09:27,798 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 00:09:27,802 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 00:09:27,802 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 00:09:27,816 [11] INFO  - RaceTrackQLearningEvent Received
+02.11.2016 00:29:11,539 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 00:29:11,543 [6] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 00:29:11,544 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 00:29:11,555 [12] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 00:29:12,478 [6] INFO  - RaceTrack Received
+02.11.2016 00:31:42,087 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 00:31:42,089 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 00:31:42,089 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 00:31:42,104 [13] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 00:31:43,199 [13] INFO  - RaceTrack Received
+02.11.2016 00:32:28,471 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 00:32:28,471 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 00:32:28,471 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 00:32:28,490 [12] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 00:35:30,704 [12] INFO  - RaceTrack Received
+02.11.2016 00:36:15,875 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 00:36:15,892 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 00:36:15,893 [12] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 00:36:15,897 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 00:36:33,902 [6] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 00:36:33,905 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 00:36:33,906 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 00:36:33,921 [6] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 00:37:17,425 [6] INFO  - RaceTrack Received
+02.11.2016 01:21:11,786 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:21:11,798 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:21:11,788 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:21:11,803 [11] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:21:12,853 [12] INFO  - RaceTrack Received
+02.11.2016 01:23:11,999 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:23:12,002 [10] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:23:12,016 [12] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:23:12,002 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:24:02,647 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:24:02,653 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:24:02,659 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:24:02,667 [11] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:24:19,687 [6] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:24:19,691 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:24:19,692 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:24:19,702 [6] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:24:32,051 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:24:32,058 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:24:32,068 [13] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:24:32,058 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:24:58,372 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:24:58,376 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:24:58,376 [6] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:24:58,388 [6] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:26:13,523 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:26:13,524 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:26:13,525 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:26:13,540 [14] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:30:49,915 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:30:49,919 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:30:49,931 [11] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:30:49,919 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:33:14,553 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:33:14,570 [11] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:33:14,590 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:33:14,603 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:33:34,138 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:33:34,140 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:33:34,145 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:33:34,154 [14] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:33:47,399 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:33:47,400 [6] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:33:47,400 [7] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:33:47,416 [7] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:36:57,776 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:36:57,792 [11] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:36:57,799 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:36:57,804 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:38:05,841 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:38:05,854 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:38:05,854 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:38:05,859 [11] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:39:25,385 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:39:25,386 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:39:25,386 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:40:13,126 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:40:13,137 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:40:13,141 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:40:13,143 [13] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:41:24,157 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:41:24,157 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:41:24,158 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:41:24,174 [14] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:41:25,342 [6] INFO  - RaceTrack Received
+02.11.2016 01:41:50,261 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:41:50,274 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:41:50,274 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:41:53,134 [12] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:43:00,506 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:43:00,507 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:43:00,507 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:43:09,804 [12] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:43:35,986 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:43:35,987 [6] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:43:35,987 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:43:40,487 [12] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:44:32,473 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:44:32,474 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:44:32,489 [14] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:44:32,474 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:45:01,003 [6] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:45:01,003 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:45:01,003 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:45:01,038 [12] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:46:33,283 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:46:33,300 [11] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:46:33,301 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:46:33,325 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:47:41,552 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:47:41,555 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:47:41,557 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:47:41,581 [14] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:48:16,339 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:48:16,348 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:48:16,349 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:48:16,374 [11] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:50:57,548 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:50:57,564 [11] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:51:13,429 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:51:13,430 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:52:02,413 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:52:02,428 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:52:02,429 [6] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:52:02,430 [13] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:53:12,723 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:53:12,741 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:53:12,741 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:53:12,742 [14] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:54:50,072 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:54:50,080 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:54:50,080 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:54:50,090 [11] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:56:28,540 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:56:28,540 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:56:28,540 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:56:28,561 [14] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:57:31,358 [10] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 01:57:31,358 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 01:57:31,358 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 01:57:31,379 [10] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 01:57:40,183 [11] INFO  - RaceTrack Received
+02.11.2016 02:11:28,513 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 02:11:28,524 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+02.11.2016 02:11:28,525 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 02:11:28,530 [12] INFO  - FileExplorerDataSourceEvent Received
+02.11.2016 02:16:09,377 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+02.11.2016 02:16:09,377 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+02.11.2016 02:16:09,378 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor

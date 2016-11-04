@@ -1,14 +1,14 @@
-﻿namespace MachineLearningActorSystem.Events
-{
-    using Models;
+﻿using MachineLearningActorSystem.Models;
 
+namespace MachineLearningActorSystem.Events
+{
     public class CrossValidationEvent
     {
-        public CrossValidationEvent(SingleClassDataModel data)
+        public CrossValidationEvent(Classifiers data)
         {
             Data = data;
         }
 
-        public SingleClassDataModel Data { get; set; }
+        public Classifiers Data { get; set; }
     }
 }

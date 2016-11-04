@@ -22,7 +22,7 @@
 //      MakeTrainTest(allData, 0, out trainData, out testData);
 //      Console.WriteLine("Done");
 
- 
+
 //      Console.WriteLine("\nTraining data: \n");
 //      ShowData(trainData, 3, 2, true);
 
@@ -227,7 +227,7 @@
 
 //        //for (int j = 0; j < weights.Length; ++j) // update
 //        //  weights[j] += alpha * accumulatedGradients[j];
- 
+
 //      } // while
 //      return this.weights; // by ref is somewhat risky
 //    } // Train

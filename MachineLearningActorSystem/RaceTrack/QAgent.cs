@@ -3,139 +3,164 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
+using log4net;
 using MachineLearningActorSystem.Core;
-using sun.security.action;
 
 namespace MachineLearningActorSystem.RaceTrack
 {
     [Serializable]
     public class QAgent
     {
-        public string AgentName { get; set; }
-        public double LearningRate { get; set; }
-        public ValueFunction ValueFunction { get; set; }
-        public string RaceTime { get; set; }
-        public double TotalReward { get; set; }
-        public int TotalSteps { get; set; }
-        public bool FailedRace { get; set; }
-        public List<QState> Episode { get; set; }
-        // Tuple(ax, ay, w1, w2, w3, w4, w5)
-        public readonly List<Tuple<int, int, double, double, double, double, double>> ActionsAndWeights 
-            = new List<Tuple<int, int, double, double, double, double, double>>
-            {
-                //                                                          ax ay     x    y    vx   vy
-                new Tuple<int, int, double, double, double, double, double>( 0, 0, 1, 0.1, 0.1, 0.9, 0.9),
-                new Tuple<int, int, double, double, double, double, double>(-1, 0, 1, 0.4, 0.3, 0.5, 0.9),
-                new Tuple<int, int, double, double, double, double, double>( 0, 1, 1, 0.3, 0.3, 0.5, 0.9),
-                new Tuple<int, int, double, double, double, double, double>( 0,-1, 1, 0.3, 0.3, 0.9, 0.5),
-                new Tuple<int, int, double, double, double, double, double>( 1, 0, 1, 0.3, 0.4, 0.9, 0.5),
-                new Tuple<int, int, double, double, double, double, double>(-1,-1, 1, 0.4, 0.4, 0.1, 0.1),
-                new Tuple<int, int, double, double, double, double, double>(-1, 1, 1, 0.3, 0.4, 0.1, 0.3),
-                new Tuple<int, int, double, double, double, double, double>( 1,-1, 1, 0.4, 0.3, 0.2, 0.2),
-                new Tuple<int, int, double, double, double, double, double>( 1, 1, 1, 0.3, 0.3, 0.3, 0.1)
-            };
+        [NonSerialized] private readonly ILog Logger = LogManager.GetLogger(typeof(QAgent));
 
         public QAgent()
         {
             Episode = new List<QState>();
+            Settings = new QAgentSettings();
+            Runs = new List<QAgentRun>();
         }
 
-        public QAgent(double learningRate, ValueFunction valueFunction)
+        public QAgent(ValueFunction valueFunction, double learningRate, double explorationRate, double discountRate,
+            int runs)
         {
-            LearningRate = learningRate;
             ValueFunction = valueFunction;
+            Settings = new QAgentSettings(learningRate, explorationRate, discountRate, runs);
             Episode = new List<QState>();
+            Runs = new List<QAgentRun>();
+            AgentName = $"Agent.L({Settings.LearningRate}).E({Settings.ExplorationRate}).D({Settings.DiscountRate})";
         }
+
+        public string AgentName { get; set; }
+        public ValueFunction ValueFunction { get; set; }
+        public string RaceTime { get; set; }
+
+        [XmlIgnore]
+        public List<QState> Episode { get; set; }
+
+        public QAgentSettings Settings { get; set; }
+        public List<QAgentRun> Runs { get; set; }
+        public int MaxRunSteps { get; set; }
+        public double MaxRunReward { get; set; }
 
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"AgentName: {AgentName}");
-            sb.AppendLine($"RaceTime: {RaceTime}");
-            sb.AppendLine($"TotalReward: {TotalReward}");
-            sb.AppendLine($"TotalSteps: {TotalSteps}");
-            sb.AppendLine("Last steps in Episode:");
-            foreach (var state in Episode)
-            {
-                sb.AppendLine($" {state}");
-            }
 
+            sb.AppendLine(
+                $"   AgentName: {AgentName} RaceTime: {RaceTime} MaxRunReward: {MaxRunReward} MaxRunSteps: {MaxRunSteps}");
+            sb.AppendLine($"   Settings: {Settings}");
+            foreach (var run in Runs)
+                sb.AppendLine($"    {run}");
             return sb.ToString();
         }
 
         public void Race()
         {
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
+            Logger.Info("Starting Agent Race/Iteration");
 
-            Episode = new List<QState>()
+            for (var i = 0; i < Settings.Runs; i++)
             {
-                RaceTrackSimulator.StartEpisode()
-            };
+                var run = new QAgentRun();
+                var stopwatch = new Stopwatch();
+                stopwatch.Start();
+                Episode.Add(RaceTrackSimulator.StartEpisode());
 
-            AgentName = $"Agent.X{Episode.Single().X}.Y{Episode.Single().Y}";
+                try
+                {
+                    do
+                    {
+                        if (Episode.Last().Reward == -5)
+                            run.OffTrackSteps++;
 
-            while (MoveAgent());
+                        if (Episode.Last().Reward == -1)
+                            run.OnTrackSteps++;
+                        run.TotalReward += Episode.Last().Reward;
+                        run.TotalSteps++;
+                        var curr = Episode.Last();
+                        Console.Write(
+                            $"\r({curr.X},{curr.Y},{curr.VX},{curr.VY},{curr.AX},{curr.AY}) TP{curr.StateType} R{curr.Reward} st{run.TotalSteps} t{stopwatch.Elapsed.ToString(@"mm\:ss")}");
+                        if (run.TotalSteps >= Config.ExplorerMaxIterations)
+                            throw new Exception("Max iterations reached");
+                    } while (MoveAgent(Episode.Last()).StateType != 1);
+                    Console.WriteLine("");
+                }
+                catch (Exception ex)
+                {
+                    run.FailedRace = true;
+                    Console.WriteLine("");
+                    Logger.Warn($"Stopping Run due to Exception: {ex}");
+                }
 
-            stopwatch.Stop();
-            RaceTime = stopwatch.Elapsed.ToString();
-            TotalSteps = Episode.Count;
-            TotalReward = Episode.Sum(x => x.Reward);
-            Episode.RemoveRange(0, Episode.Count-2);
+                stopwatch.Stop();
+                run.RunTime = stopwatch.Elapsed.ToString();
+                run.TotalSteps += 1;
+                run.TotalReward += Episode.Last().Reward;
+                Runs.Add(run);
+            }
+
+            if (Runs.Where(f => !f.FailedRace).Any())
+            {
+                MaxRunReward = Runs.Where(f => !f.FailedRace).DefaultIfEmpty().Max(x => x.TotalReward);
+                MaxRunSteps = Runs.Where(f => !f.FailedRace).Max(x => x.TotalSteps);
+            }
+            else
+            {
+                MaxRunReward = double.MinValue;
+                MaxRunSteps = int.MaxValue;
+            }
+            Console.WriteLine(ToString());
+            Logger.Info("Agent Race/Iteration done");
         }
 
-        public bool MoveAgent()
+        public QState MoveAgent(QState currQstate)
+        {
+            switch (ValueFunction)
+            {
+                case ValueFunction.One:
+                    return GetState_Vf1(currQstate);
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public QState GetState_Vf1(QState cs)
         {
             try
             {
-                switch (ValueFunction)
-                {
-                    case ValueFunction.One:
-                        var newState = Episode.Last().NextQState(ValueFunctionOne());
-                        Episode.Add(newState);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                QAction action = null;
+                if (Episode.Count == 1)
+                    action = cs.Actions.Actions.Single(a => (a.X == -1) && (a.Y == -1));
+                else
+                    action = cs.Actions.GetAction(cs);
+
+                var ns = cs.NextQState(action);
+                QState qState = null;
+                if (Episode.Count != 0)
+                    qState = Episode.LastOrDefault(x =>
+                            (ns.X > x.XRange[0])
+                            && (ns.Y > x.YRange[0])
+                            && (ns.X < x.XRange[1])
+                            && (ns.Y < x.YRange[1])
+                            && (ns.VX > x.VX - x.VEst)
+                            && (ns.VY > x.VY - x.VEst)
+                            && (ns.VX < x.VX + x.VEst)
+                            && (ns.VY < x.VY + x.VEst)
+                    );
+                if (qState != null)
+                    ns.Actions = qState.Actions;
+
+                Episode.Add(ns);
+
+                var maxQ = ns.Actions.GetMaxExpectedQValue(ns);
+                action.UpdateWeights(ns, maxQ);
+                return ns;
             }
             catch (Exception ex)
             {
-                FailedRace = true;
-                Console.WriteLine($"Stopping Race due to Exception: {ex}");
+                Logger.Warn($"GetState_Vf1:{ex}");
+                throw;
             }
-            
-            return !FailedRace
-                && Episode.Last().StateType == 0
-                && Episode.Count < Config.ExplorerMaxIterations;
-        }
-
-        public Tuple<double, double> ValueFunctionOne()
-        {
-            var actionDiffs = new List<KeyValuePair<int, double>>();
-            for (int i = 0; i < ActionsAndWeights.Count; i++)
-            {
-                actionDiffs.Add(ActionFunctionOne(i));                
-            }
-            var maxDiff = actionDiffs.Max(x => x.Value);
-            var maxActions = actionDiffs.Where(x => x.Value == maxDiff).ToList();
-            var random = new Random();
-            var actionIndex = random.Next(0, maxActions.Count);
-            return new Tuple<double, double>(ActionsAndWeights[actionIndex].Item1, ActionsAndWeights[actionIndex].Item2);
-        }
-
-        public KeyValuePair<int, double> ActionFunctionOne(int index)
-        {
-            var a = ActionsAndWeights[index];
-            var curr = Episode.Last();
-            var prev = curr.PrevQState;
-            double resultCalc = 0;
-            if (prev != null)
-            {
-                var currCalc = a.Item3 + a.Item4 * curr.X + a.Item5 * curr.Y + a.Item6 * curr.VX + a.Item7 * curr.VY;
-                var prevCalc = a.Item3 + a.Item4 * prev.X + a.Item5 * prev.Y + a.Item6 * prev.VX + a.Item7 * prev.VY;
-                resultCalc = curr.Reward + LearningRate * (currCalc - prevCalc);
-            }
-            return new KeyValuePair<int, double>(index, Math.Abs(resultCalc));
         }
     }
 }

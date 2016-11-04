@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Akka.Actor;
+using MachineLearningActorSystem.Core;
 using MachineLearningActorSystem.Events;
 using MachineLearningActorSystem.RaceTrack;
 
@@ -9,8 +10,11 @@ namespace MachineLearningActorSystem.Actors.Explorers
 {
     public class ExplorerCoordinatorActor : BaseActor
     {
-        private readonly IActorRef _raceTrackValueIterationActor = Context.ActorOf(Props.Create<RaceTrackValueIterationActor>(), typeof(RaceTrackValueIterationActor).Name);
-        private readonly IActorRef _raceTrackQLearningActor = Context.ActorOf(Props.Create<RaceTrackQLearningActor>(), typeof(RaceTrackQLearningActor).Name);
+        private readonly IActorRef _raceTrackQLearningActor = Context.ActorOf(Props.Create<RaceTrackQLearningActor>(),
+            typeof(RaceTrackQLearningActor).Name);
+
+        private readonly IActorRef _raceTrackValueIterationActor =
+            Context.ActorOf(Props.Create<RaceTrackValueIterationActor>(), typeof(RaceTrackValueIterationActor).Name);
 
         public ExplorerCoordinatorActor()
         {
@@ -18,34 +22,50 @@ namespace MachineLearningActorSystem.Actors.Explorers
             {
                 logger.Info($"{fileDataSourceEvent.GetType().Name} Received");
                 var raceTrack = ReadMapFile(fileDataSourceEvent);
-                _raceTrackValueIterationActor.Tell(raceTrack);
+                if ((raceTrack.Races != null) && (raceTrack.Races.Count > 0) && fileDataSourceEvent.PrintLastRun)
+                {
+                    Console.Write(raceTrack);
+                    logger.Info($"{raceTrack.GetType().Name} ValueIteration Results Printed");
+                }
+                else
+                {
+                    _raceTrackValueIterationActor.Tell(raceTrack);
+                }
             });
 
             Receive<RaceTrackQLearningEvent>(raceTrackQLearningEvent =>
             {
                 logger.Info($"{raceTrackQLearningEvent.GetType().Name} Received");
                 var raceTrack = ReadQFile();
-                _raceTrackQLearningActor.Tell(raceTrack);
+                if ((raceTrack.Races != null) && (raceTrack.Races.Count > 0) && raceTrackQLearningEvent.PrintLastRun)
+                {
+                    Console.Write(raceTrack);
+                    logger.Info($"{raceTrack.GetType().Name} QLearning Results Printed");
+                }
+                else
+                {
+                    _raceTrackQLearningActor.Tell(raceTrack);
+                }
             });
         }
 
         private RaceTrack.RaceTrack ReadMapFile(FileExplorerDataSourceEvent dataSource)
         {
-            var raceTrack = RaceTrackHelper.LoadRaceTrack();
+            var raceTrack = XmlHelper.LoadRaceTrack();
 
-            if (raceTrack != null)
+            if (dataSource.PrintLastRun && (raceTrack != null))
             {
-                Console.WriteLine("RaceTrack map file already exists.. using xml");
+                logger.Info("RaceTrack map file already exists.. using xml");
                 return raceTrack;
             }
 
-            Console.WriteLine("Reading RaceTrack map file started");
+            logger.Info("Reading RaceTrack map file started");
 
             StreamReader reader = null;
 
-            int mapWidth = -1;
-            int mapHeight = -1;
-            List<State> states = new List<State>();
+            var mapWidth = -1;
+            var mapHeight = -1;
+            var states = new List<State>();
 
             try
             {
@@ -53,8 +73,8 @@ namespace MachineLearningActorSystem.Actors.Explorers
 
                 string str = null;
                 // line counter
-                int lines = 0;
-                int y = 0;
+                var lines = 0;
+                var y = 0;
 
                 // read the file
                 while ((str = reader.ReadLine()) != null)
@@ -66,7 +86,7 @@ namespace MachineLearningActorSystem.Actors.Explorers
                         continue;
 
                     // split the string
-                    string[] strs = str.Split(' ');
+                    var strs = str.Split(' ');
 
                     // check the line
                     if (lines == 0) // Map Size
@@ -80,13 +100,11 @@ namespace MachineLearningActorSystem.Actors.Explorers
                         // map lines
                         if (y < mapHeight)
                         {
-                            for (int x = 0; x < mapWidth; x++)
+                            for (var x = 0; x < mapWidth; x++)
                             {
-                                var stateType = (StateType)int.Parse(strs[x]);
+                                var stateType = (StateType) int.Parse(strs[x]);
                                 if (stateType != StateType.OffWorld)
-                                {
                                     states.Add(new State(x, y, 0, 0, stateType));
-                                }
                             }
                             y++;
                         }
@@ -95,13 +113,12 @@ namespace MachineLearningActorSystem.Actors.Explorers
                 }
 
 
-                Console.WriteLine("Reading RaceTrack map file completed");
+                logger.Info("Reading RaceTrack map file completed");
 
                 raceTrack = new RaceTrack.RaceTrack(states);
-                RaceTrackHelper.SaveRaceTrack(raceTrack);
+                XmlHelper.SaveRaceTrack(raceTrack);
 
                 return raceTrack;
-
             }
             catch (Exception ex)
             {
@@ -118,16 +135,11 @@ namespace MachineLearningActorSystem.Actors.Explorers
 
         private QRaceTrack ReadQFile()
         {
-            var raceTrack = RaceTrackHelper.LoadQRaceTrack();
+            var raceTrack = XmlHelper.LoadQRaceTrack();
 
             if (raceTrack != null)
-            {
                 return raceTrack;
-            }
-            else
-            {
-                return new QRaceTrack();
-            }
+            return new QRaceTrack();
         }
     }
 }

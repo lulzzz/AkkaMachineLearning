@@ -17,7 +17,7 @@ namespace MachineLearningActorSystem.RaceTrack
         public Agent(State startState)
         {
             AgentName = $"Agent.X{startState.X}.Y{startState.Y}";
-            Episode = new List<State>() {startState};
+            Episode = new List<State> {startState};
         }
 
         public string AgentName { get; set; }
@@ -35,20 +35,13 @@ namespace MachineLearningActorSystem.RaceTrack
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"AgentName: {AgentName}");
-            sb.AppendLine($"RaceTime: {RaceTime}");
-            sb.AppendLine($"TotalReward: {TotalReward}");
-            sb.AppendLine($"NoSlideSteps: {NoSlideSteps}");
-            sb.AppendLine($"SlideRightSteps: {SlideRightSteps}");
-            sb.AppendLine($"SlideUpSteps: {SlideUpSteps}");
-            sb.AppendLine($"OffWorldSteps: {OffWorldSteps}");
-            sb.AppendLine($"GoodSteps: {GoodSteps}");
-            sb.AppendLine($"TotalSteps: {TotalSteps}");
-            sb.AppendLine("Episode:");
+            sb.AppendLine(
+                $"   AgentName: {AgentName} RaceTime: {RaceTime} TotalReward: {TotalReward} TotalSteps: {TotalSteps}");
+            sb.AppendLine(
+                $"   NoSlide: {NoSlideSteps} RightSlide: {SlideRightSteps} UpSlide: {SlideUpSteps} OffTrack: {OffWorldSteps} OnTrack: {GoodSteps}");
+            sb.AppendLine($"   Episode:");
             foreach (var state in Episode)
-            {
-                sb.AppendLine($" {state}");
-            }
+                sb.AppendLine($"   - {state}");
 
             return sb.ToString();
         }
@@ -63,29 +56,31 @@ namespace MachineLearningActorSystem.RaceTrack
             var randomNumberGenerator = new Random(DateTime.Now.Millisecond);
             do
             {
-                int dvx = currentState.VX + currentAction.X;
-                int dvy = currentState.VY + currentAction.Y;
+                var dvx = currentState.VX + currentAction.X;
+                var dvy = currentState.VY + currentAction.Y;
 
                 // Max velocity -4 || 4
                 dvx = dvx < -4 ? -4 : dvx > 4 ? 4 : dvx;
                 dvy = dvy < -4 ? -4 : dvy > 4 ? 4 : dvy;
 
-                int dx = currentState.X + dvx;
-                int dy = currentState.Y + dvy;
+                var dx = currentState.X + dvx;
+                var dy = currentState.Y + dvy;
 
                 State nextState = null;
-                switch (randomNumberGenerator.Next(0,3))
+                switch (randomNumberGenerator.Next(0, 3))
                 {
                     // 50% chance no slide
                     case 0:
                     case 1:
                         NoSlideSteps++;
-                        nextState = states.SingleOrDefault(s => s.X == dx && s.Y == dy && s.VX == dvx && s.VY == dvy);
+                        nextState =
+                            states.SingleOrDefault(s => (s.X == dx) && (s.Y == dy) && (s.VX == dvx) && (s.VY == dvy));
                         if (nextState == null)
                         {
                             TotalReward += -5;
                             OffWorldSteps++;
-                            nextState = states.SingleOrDefault(s => s.X == dx && s.Y == dy && s.VX == 0 && s.VY == 0);
+                            nextState =
+                                states.SingleOrDefault(s => (s.X == dx) && (s.Y == dy) && (s.VX == 0) && (s.VY == 0));
                         }
                         else
                         {
@@ -98,30 +93,34 @@ namespace MachineLearningActorSystem.RaceTrack
                     case 2:
                         SlideUpSteps++;
                         // If the slide up takes the agent off track, then move it back on track with 0 velocity
-                        nextState = states.SingleOrDefault(s => s.X == dx && s.Y == dy - 1 && s.VX == dvx && s.VY == dvy);
+                        nextState =
+                            states.SingleOrDefault(s => (s.X == dx) && (s.Y == dy - 1) && (s.VX == dvx) && (s.VY == dvy));
                         if (nextState == null)
                         {
                             TotalReward += -5;
                             OffWorldSteps++;
-                            nextState = states.SingleOrDefault(s => s.X == dx && s.Y == dy && s.VX == 0 && s.VY == 0);
+                            nextState =
+                                states.SingleOrDefault(s => (s.X == dx) && (s.Y == dy) && (s.VX == 0) && (s.VY == 0));
                         }
                         else
                         {
                             TotalReward += -1;
                             GoodSteps++;
                         }
-                                    
+
                         break;
                     // 25% chance slide right
                     case 3:
                         // If the slide right takes the agent off track, then move it back on track with 0 velocity
-                        nextState = states.SingleOrDefault(s => s.X == dx + 1 && s.Y == dy && s.VX == dvx && s.VY == dvy);
+                        nextState =
+                            states.SingleOrDefault(s => (s.X == dx + 1) && (s.Y == dy) && (s.VX == dvx) && (s.VY == dvy));
                         SlideRightSteps++;
                         if (nextState == null)
                         {
                             TotalReward += -5;
                             OffWorldSteps++;
-                            nextState = states.SingleOrDefault(s => s.X == dx && s.Y == dy && s.VX == 0 && s.VY == 0);
+                            nextState =
+                                states.SingleOrDefault(s => (s.X == dx) && (s.Y == dy) && (s.VX == 0) && (s.VY == 0));
                         }
                         else
                         {
@@ -132,13 +131,13 @@ namespace MachineLearningActorSystem.RaceTrack
                         break;
                 }
 
-                if (nextState == null 
+                if ((nextState == null)
                     || Episode.Exists(
-                        e => e.X == nextState.X 
-                        && e.Y == nextState.Y 
-                        && e.VX == nextState.VX 
-                        && e.VY == nextState.VY)
-                    || nextState.Policy == null 
+                        e => (e.X == nextState.X)
+                             && (e.Y == nextState.Y)
+                             && (e.VX == nextState.VX)
+                             && (e.VY == nextState.VY))
+                    || (nextState.Policy == null)
                     || !nextState.Policy.Any())
                 {
                     FailedRace = true;
@@ -149,7 +148,6 @@ namespace MachineLearningActorSystem.RaceTrack
                 Episode.Add(nextState);
                 currentState = nextState;
                 currentAction = nextState.Policy.First();
-
             } while (currentState.Type != StateType.Goal);
 
             stopwatch.Stop();

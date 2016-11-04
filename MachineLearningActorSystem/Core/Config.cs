@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Globalization;
 
 namespace MachineLearningActorSystem.Core
 {
@@ -8,6 +9,32 @@ namespace MachineLearningActorSystem.Core
         // Core
         private static int _coreShutdownTimeoutSeconds;
 
+        private static bool? _coreSaveModelBinaries;
+
+        private static bool? _coreEnableExplorerActors;
+
+        private static bool? _coreEnableClassifierActors;
+
+        // Classifiers
+        private static int _classifierCrossValidationFolds;
+
+        private static int _classifierBootstrapSubSamples;
+
+        // Explorers
+        private static int _explorerMaxIterations;
+
+        private static double _explorerExplorationRate = -1;
+
+        private static double _explorerLearningRate = -1;
+
+        private static double _explorerDiscountRate;
+
+        private static double _explorerMoveReward;
+
+        private static double _explorerWallReward;
+
+        private static double _explorerGoalReward;
+
         public static int CoreShutdownTimeoutSeconds
         {
             get
@@ -15,9 +42,8 @@ namespace MachineLearningActorSystem.Core
                 try
                 {
                     if (_coreShutdownTimeoutSeconds == 0)
-                    {
-                        _coreShutdownTimeoutSeconds = int.Parse(ConfigurationManager.AppSettings["Core:ShutdownTimeoutSeconds"]);
-                    }
+                        _coreShutdownTimeoutSeconds =
+                            int.Parse(ConfigurationManager.AppSettings["Core:ShutdownTimeoutSeconds"]);
                 }
                 catch (Exception)
                 {
@@ -28,8 +54,6 @@ namespace MachineLearningActorSystem.Core
             }
         }
 
-        private static bool? _coreSaveModelBinaries;
-
         public static bool CoreSaveModelBinaries
         {
             get
@@ -37,9 +61,7 @@ namespace MachineLearningActorSystem.Core
                 try
                 {
                     if (!_coreSaveModelBinaries.HasValue)
-                    {
                         _coreSaveModelBinaries = ConfigurationManager.AppSettings["Core:SaveModelBinaries"] == "true";
-                    }
                 }
                 catch (Exception)
                 {
@@ -50,8 +72,6 @@ namespace MachineLearningActorSystem.Core
             }
         }
 
-        private static bool? _coreEnableExplorerActors;
-
         public static bool CoreEnableExplorerActors
         {
             get
@@ -59,9 +79,8 @@ namespace MachineLearningActorSystem.Core
                 try
                 {
                     if (!_coreEnableExplorerActors.HasValue)
-                    {
-                        _coreEnableExplorerActors = ConfigurationManager.AppSettings["Core:EnableExplorerActors"] == "true";
-                    }
+                        _coreEnableExplorerActors = ConfigurationManager.AppSettings["Core:EnableExplorerActors"] ==
+                                                    "true";
                 }
                 catch (Exception)
                 {
@@ -72,8 +91,6 @@ namespace MachineLearningActorSystem.Core
             }
         }
 
-        private static bool? _coreEnableClassifierActors;
-
         public static bool CoreEnableClassifierActors
         {
             get
@@ -81,10 +98,8 @@ namespace MachineLearningActorSystem.Core
                 try
                 {
                     if (!_coreEnableClassifierActors.HasValue)
-                    {
                         _coreEnableClassifierActors = ConfigurationManager.AppSettings["Core:EnableClassifierActors"] ==
                                                       "true";
-                    }
                 }
                 catch (Exception)
                 {
@@ -95,9 +110,6 @@ namespace MachineLearningActorSystem.Core
             }
         }
 
-        // Classifiers
-        private static int _classifierCrossValidationFolds;
-
         public static int ClassifierCrossValidationFolds
         {
             get
@@ -105,10 +117,8 @@ namespace MachineLearningActorSystem.Core
                 try
                 {
                     if (_classifierCrossValidationFolds == 0)
-                    {
                         _classifierCrossValidationFolds =
                             int.Parse(ConfigurationManager.AppSettings["Classifier:CrossValidationFolds"]);
-                    }
                 }
                 catch (Exception)
                 {
@@ -119,8 +129,6 @@ namespace MachineLearningActorSystem.Core
             }
         }
 
-        private static int _classifierBootstrapSubSamples;
-
         public static int ClassifierBootstrapSubSamples
         {
             get
@@ -128,9 +136,8 @@ namespace MachineLearningActorSystem.Core
                 try
                 {
                     if (_classifierBootstrapSubSamples == 0)
-                    {
-                        _classifierBootstrapSubSamples = int.Parse(ConfigurationManager.AppSettings["Classifier:BootStrapSubSamples"]);
-                    }
+                        _classifierBootstrapSubSamples =
+                            int.Parse(ConfigurationManager.AppSettings["Classifier:BootStrapSubSamples"]);
                 }
                 catch (Exception)
                 {
@@ -141,9 +148,6 @@ namespace MachineLearningActorSystem.Core
             }
         }
 
-        // Explorers
-        private static int _explorerMaxIterations;
-
         public static int ExplorerMaxIterations
         {
             get
@@ -151,9 +155,7 @@ namespace MachineLearningActorSystem.Core
                 try
                 {
                     if (_explorerMaxIterations == 0)
-                    {
                         _explorerMaxIterations = int.Parse(ConfigurationManager.AppSettings["Explorer:MaxIterations"]);
-                    }
                 }
                 catch (Exception)
                 {
@@ -164,18 +166,16 @@ namespace MachineLearningActorSystem.Core
             }
         }
 
-        private static double _explorerExplorationRate;
-
         public static double ExplorerExplorationRate
         {
             get
             {
                 try
                 {
-                    if (_explorerExplorationRate == 0)
-                    {
-                        _explorerExplorationRate = double.Parse(ConfigurationManager.AppSettings["Explorer:ExplorationRate"]);
-                    }
+                    if (_explorerExplorationRate == -1)
+                        _explorerExplorationRate =
+                            double.Parse(ConfigurationManager.AppSettings["Explorer:ExplorationRate"],
+                                CultureInfo.InvariantCulture);
                 }
                 catch (Exception)
                 {
@@ -186,29 +186,43 @@ namespace MachineLearningActorSystem.Core
             }
         }
 
-        private static double _explorerLearningRate = 0.5;
-
         public static double ExplorerLearningRate
         {
             get
             {
                 try
                 {
-                    if (_explorerLearningRate == 0)
-                    {
-                        _explorerLearningRate = double.Parse(ConfigurationManager.AppSettings["Explorer:LearningRate"]);
-                    }
+                    if (_explorerLearningRate == -1)
+                        _explorerLearningRate = double.Parse(ConfigurationManager.AppSettings["Explorer:LearningRate"],
+                            CultureInfo.InvariantCulture);
                 }
                 catch (Exception)
                 {
-                    _explorerLearningRate = 0.5;
+                    _explorerLearningRate = 0.1;
                 }
 
                 return _explorerLearningRate;
             }
         }
 
-        private static double _explorerMoveReward;
+        public static double ExplorerDiscountRate
+        {
+            get
+            {
+                try
+                {
+                    if (_explorerDiscountRate == 0)
+                        _explorerDiscountRate = double.Parse(ConfigurationManager.AppSettings["Explorer:DiscountRate"],
+                            CultureInfo.InvariantCulture);
+                }
+                catch (Exception)
+                {
+                    _explorerDiscountRate = 1.0;
+                }
+
+                return _explorerDiscountRate;
+            }
+        }
 
         public static double ExplorerMoveReward
         {
@@ -217,9 +231,8 @@ namespace MachineLearningActorSystem.Core
                 try
                 {
                     if (_explorerMoveReward == 0)
-                    {
-                        _explorerMoveReward = double.Parse(ConfigurationManager.AppSettings["Explorer:MoveReward"]);
-                    }
+                        _explorerMoveReward = double.Parse(ConfigurationManager.AppSettings["Explorer:MoveReward"],
+                            CultureInfo.InvariantCulture);
                 }
                 catch (Exception)
                 {
@@ -230,8 +243,6 @@ namespace MachineLearningActorSystem.Core
             }
         }
 
-        private static double _explorerWallReward;
-
         public static double ExplorerWallReward
         {
             get
@@ -239,9 +250,8 @@ namespace MachineLearningActorSystem.Core
                 try
                 {
                     if (_explorerWallReward == 0)
-                    {
-                        _explorerWallReward = double.Parse(ConfigurationManager.AppSettings["Explorer:WallReward"]);
-                    }
+                        _explorerWallReward = double.Parse(ConfigurationManager.AppSettings["Explorer:WallReward"],
+                            CultureInfo.InvariantCulture);
                 }
                 catch (Exception)
                 {
@@ -252,8 +262,6 @@ namespace MachineLearningActorSystem.Core
             }
         }
 
-        private static double _explorerGoalReward;
-
         public static double ExplorerGoalReward
         {
             get
@@ -261,9 +269,8 @@ namespace MachineLearningActorSystem.Core
                 try
                 {
                     if (_explorerGoalReward == 0)
-                    {
-                        _explorerGoalReward = double.Parse(ConfigurationManager.AppSettings["Explorer:GoalReward"]);
-                    }
+                        _explorerGoalReward = double.Parse(ConfigurationManager.AppSettings["Explorer:GoalReward"],
+                            CultureInfo.InvariantCulture);
                 }
                 catch (Exception)
                 {
@@ -273,6 +280,5 @@ namespace MachineLearningActorSystem.Core
                 return _explorerGoalReward;
             }
         }
-
     }
 }

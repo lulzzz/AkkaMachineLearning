@@ -1,8 +1,8 @@
-﻿using System.CodeDom;
-using System.Security.Policy;
+﻿using System;
 
 namespace MachineLearningActorSystem.Models
 {
+    [Serializable]
     public class HyperParametersModel
     {
         public int? Join { get; set; }

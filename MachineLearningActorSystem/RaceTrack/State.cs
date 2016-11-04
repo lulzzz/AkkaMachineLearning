@@ -10,17 +10,7 @@ namespace MachineLearningActorSystem.RaceTrack
     {
         public State()
         {
-
         }
-
-        public int X { get; set; }
-        public int Y { get; set; }
-        public int VX { get; set; }
-        public int VY { get; set; }
-        public StateType Type { get; set; }
-        public double Value { get; set; }
-        public double? NewValue { get; set; }
-        public List<Action> Policy { get; set; }
 
         public State(int x, int y, int vx, int vy, StateType type)
         {
@@ -33,13 +23,20 @@ namespace MachineLearningActorSystem.RaceTrack
             Policy = new List<Action>();
         }
 
+        public int X { get; set; }
+        public int Y { get; set; }
+        public int VX { get; set; }
+        public int VY { get; set; }
+        public StateType Type { get; set; }
+        public double Value { get; set; }
+        public double? NewValue { get; set; }
+        public List<Action> Policy { get; set; }
+
         public override string ToString()
         {
-            string p = string.Empty;
+            var p = string.Empty;
             foreach (var action in Policy)
-            {
                 p += $"({action.X},{action.Y})";
-            }
             var sb = new StringBuilder();
             sb.Append($"{Type} X: {X} Y: {Y} VX: {VX} VY: {VY} Policy: {p}");
 
@@ -48,15 +45,16 @@ namespace MachineLearningActorSystem.RaceTrack
 
         public int CalculateValue(ref List<State> states)
         {
-            if (Type == StateType.Goal || !Policy.Any()) return 0;
+            if ((Type == StateType.Goal) || !Policy.Any()) return 0;
 
             foreach (var action in Policy)
             {
-                int dvx = VX + action.X;
-                int dvy = VY + action.Y;
-                int dx = X + dvx;
-                int dy = Y + dvy;
-                action.ReturnValue = states.Single(s => s.X == dx && s.Y == dy && s.VX == dvx && s.VY == dvy).Value;
+                var dvx = VX + action.X;
+                var dvy = VY + action.Y;
+                var dx = X + dvx;
+                var dy = Y + dvy;
+                action.ReturnValue =
+                    states.Single(s => (s.X == dx) && (s.Y == dy) && (s.VX == dvx) && (s.VY == dvy)).Value;
             }
 
             if (Policy.Any())
@@ -84,9 +82,7 @@ namespace MachineLearningActorSystem.RaceTrack
             var maxReturnValue = Policy.Max(a => a.ReturnValue.Value);
             var deleteCount = Policy.Count(a => a.ReturnValue.Value != maxReturnValue);
             if (deleteCount != policyCount)
-            {
                 Policy.RemoveAll(a => a.ReturnValue.Value != maxReturnValue);
-            }
             Policy.ForEach(x => x.ReturnValue = null);
 
             var delta = policyCount - Policy.Count;

@@ -1,12 +1,12 @@
-﻿namespace MachineLearningActorSystem.Actors
-{
-    using Akka.Actor;
-    using Events;
-    using log4net;
+﻿using Akka.Actor;
+using log4net;
+using MachineLearningActorSystem.Events;
 
+namespace MachineLearningActorSystem.Actors
+{
     public abstract class BaseActor : ReceiveActor
     {
-        protected readonly ILog logger; 
+        protected readonly ILog logger;
 
         public BaseActor()
         {
@@ -21,13 +21,13 @@
 
         protected override void PreStart()
         {
-            logger.InfoFormat("Started\n- ActorPath: {0}", Self.Path.ToString());
+            logger.InfoFormat("Started\n- ActorPath: {0}", Self.Path);
             base.PreStart();
         }
 
         protected override void PostStop()
         {
-            logger.InfoFormat("Stopped\n- ActorPath: {0}", Self.Path.ToString());
+            logger.InfoFormat("Stopped\n- ActorPath: {0}", Self.Path);
             base.PostStop();
         }
     }

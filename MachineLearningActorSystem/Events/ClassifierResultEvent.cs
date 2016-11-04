@@ -2,7 +2,6 @@
 {
     public class ClassifierResultEvent
     {
-
         public ClassifierResultEvent(object classifier, double error, string splittingMethod, string batchId)
         {
             Error = error;
@@ -15,6 +14,5 @@
         public double Error { get; set; }
         public string SplittingMethod { get; set; }
         public string BatchId { get; set; }
-
     }
 }

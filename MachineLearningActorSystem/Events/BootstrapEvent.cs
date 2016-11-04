@@ -1,14 +1,14 @@
-﻿namespace MachineLearningActorSystem.Events
-{
-    using Models;
+﻿using MachineLearningActorSystem.Models;
 
+namespace MachineLearningActorSystem.Events
+{
     public class BootstrapEvent
     {
-        public BootstrapEvent(SingleClassDataModel data)
+        public BootstrapEvent(Classifiers data)
         {
             Data = data;
         }
 
-        public SingleClassDataModel Data { get; set; }
+        public Classifiers Data { get; set; }
     }
 }

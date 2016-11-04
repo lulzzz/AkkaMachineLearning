@@ -1,7 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using System;
 
 namespace MachineLearningActorSystem.Models
 {
+    [Serializable]
     public class ValidatorModel
     {
         public string Type { get; set; } // CrossValidation, ...

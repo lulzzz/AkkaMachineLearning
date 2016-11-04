@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 
 namespace MachineLearningActorSystem.RaceTrack
@@ -20,7 +21,7 @@ namespace MachineLearningActorSystem.RaceTrack
             Agents = agents;
         }
 
-        public int RaceNumber { get; set; }    
+        public int RaceNumber { get; set; }
         public string RaceDateTime { get; set; }
         public string TotalRaceTime { get; set; }
         public List<Agent> Agents { get; set; }
@@ -28,14 +29,14 @@ namespace MachineLearningActorSystem.RaceTrack
         public override string ToString()
         {
             var sb = new StringBuilder();
-
-            sb.AppendLine($"RaceNumber: {RaceNumber}");
-            sb.AppendLine($"RaceDateTime: {RaceDateTime}");
-            foreach (var agent in Agents)
-            {
+            sb.AppendLine("");
+            sb.AppendLine("*************************************************************************************");
+            sb.AppendLine($"RaceNumber: {RaceNumber} RaceDateTime: {RaceDateTime} TotalRaceTime: {TotalRaceTime}");
+            sb.AppendLine("*************************************************************************************");
+            sb.AppendLine($"  Agents for each start state (Ordered by Max Reward):");
+            foreach (var agent in Agents.OrderByDescending(a => a.TotalReward))
                 sb.AppendLine(agent.ToString());
-            }
-
+            sb.AppendLine("*************************************************************************************");
             return sb.ToString();
         }
 
@@ -44,9 +45,7 @@ namespace MachineLearningActorSystem.RaceTrack
             var stopwatch = new Stopwatch();
             stopwatch.Start();
             foreach (var agent in Agents)
-            {
                 agent.Race(ref states);
-            }
             stopwatch.Stop();
             TotalRaceTime = stopwatch.Elapsed.ToString();
         }

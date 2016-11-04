@@ -8,7 +8,6 @@ namespace MachineLearningActorSystem.RaceTrack
     {
         public Iteration()
         {
-            
         }
 
         public Iteration(int iterationId, string timeToLearn, double valueDelta, int policyDelta)
@@ -18,6 +17,7 @@ namespace MachineLearningActorSystem.RaceTrack
             ValueDelta = valueDelta;
             PolicyDelta = policyDelta;
         }
+
         public int IterationId { get; set; }
         public string TimeToLearn { get; set; }
         public double ValueDelta { get; set; }
@@ -27,10 +27,7 @@ namespace MachineLearningActorSystem.RaceTrack
         {
             var sb = new StringBuilder();
 
-            sb.AppendLine($"IterationId: {IterationId}");
-            sb.AppendLine($"TimeToLearn: {TimeToLearn}");
-            sb.AppendLine($"ValueDelta: {ValueDelta}");
-            sb.AppendLine($"PolicyDelta: {PolicyDelta}");
+            sb.Append($"{IterationId} TimeToLearn: {TimeToLearn} ValueDelta: {ValueDelta} PolicyDelta: {PolicyDelta}");
 
             return sb.ToString();
         }

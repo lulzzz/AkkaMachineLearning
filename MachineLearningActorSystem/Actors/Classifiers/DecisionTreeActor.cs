@@ -7,7 +7,6 @@ using Accord.MachineLearning.DecisionTrees;
 using Accord.MachineLearning.DecisionTrees.Learning;
 using Accord.Math;
 using Accord.Math.Optimization.Losses;
-using LiteDB;
 using MachineLearningActorSystem.Core;
 using MachineLearningActorSystem.Events;
 using MachineLearningActorSystem.Models;
@@ -16,8 +15,7 @@ namespace MachineLearningActorSystem.Actors.Classifiers
 {
     public class DecisionTreeActor : BaseActor
     {
-
-        private GridSearchParameterCollection _bestParameters = null;
+        private GridSearchParameterCollection _bestParameters;
 
         public DecisionTreeActor()
         {
@@ -28,7 +26,7 @@ namespace MachineLearningActorSystem.Actors.Classifiers
                 Sender.Tell(model, Self);
             });
 
-            Receive<BootstrapEvent>(bootstrapEvent=>
+            Receive<BootstrapEvent>(bootstrapEvent =>
             {
                 logger.Info($"{bootstrapEvent.GetType().Name} Received");
                 var model = BootstrapTraining(bootstrapEvent.Data);
@@ -36,8 +34,10 @@ namespace MachineLearningActorSystem.Actors.Classifiers
             });
         }
 
-        private ClassifierResultEvent CrossValidationTraining(SingleClassDataModel singleClassDataModel)
+        private ClassifierResultEvent CrossValidationTraining(Models.Classifiers classifiers)
         {
+            logger.Info("CrossValidationTraning Started");
+            var singleClassDataModel = classifiers.SingleClassDataModels.First();
             var batchId = Guid.NewGuid();
             var folds = Config.ClassifierCrossValidationFolds;
             var samples = singleClassDataModel.Inputs.Length;
@@ -54,8 +54,8 @@ namespace MachineLearningActorSystem.Actors.Classifiers
                 var validationOutputs = singleClassDataModel.Outputs.Get(indicesValidation);
 
                 var tree = TrainParameters(
-                    attributes, 
-                    singleClassDataModel.Classes.Count, 
+                    attributes,
+                    singleClassDataModel.Classes.Count,
                     trainingInputs,
                     trainingOutputs);
 
@@ -79,8 +79,8 @@ namespace MachineLearningActorSystem.Actors.Classifiers
                     },
                     HyperParameters = new HyperParametersModel
                     {
-                        SplitStep = (int)_bestParameters.Single(x => x.Name == "splitstep").Value,
-                        Join = (int)_bestParameters.Single(x => x.Name == "join").Value
+                        SplitStep = (int) _bestParameters.Single(x => x.Name == "splitstep").Value,
+                        Join = (int) _bestParameters.Single(x => x.Name == "join").Value
                     },
                     TrainingError = trainingError,
                     ValidationError = validationError,
@@ -93,31 +93,30 @@ namespace MachineLearningActorSystem.Actors.Classifiers
             var cvResult = crossvalidation.Compute();
             var cvMinError = cvResult.Models.Min(x => x.ValidationValue);
             var bestCvResult = cvResult.Models.Single(x => x.ValidationValue == cvMinError);
-            var bestModel = (DecisionTree)bestCvResult.Model;
+            var bestModel = (DecisionTree) bestCvResult.Model;
 
-            logger.Info($"\n{StringHelper.PrintValidationResultString(classifierModels, singleClassDataModel.Name, cvResult)}");
-
-            using (var db = new LiteDatabase(@".\Resources\MlAsData.db"))
-            {
-                var classifierModelCollection = db.GetCollection<ClassifierModel>("ClassifierModel");
-                classifierModelCollection.Insert(classifierModels);
-            }
-
+            Console.Write(
+                $"{StringHelper.PrintValidationResultString(classifierModels, singleClassDataModel.Name, cvResult)}\n");
+            classifiers.ClassifierModels.AddRange(classifierModels);
+            XmlHelper.SaveClassifiers(classifiers);
+            logger.Info("CrossValidationTraning Completed");
             return new ClassifierResultEvent(bestModel, cvMinError, "CrossValidation", batchId.ToString());
         }
 
-        private ClassifierResultEvent BootstrapTraining(SingleClassDataModel singleClassDataModel)
+        private ClassifierResultEvent BootstrapTraining(Models.Classifiers classifiers)
         {
+            logger.Info("BootstrapTraining Started");
+            var singleClassDataModel = classifiers.SingleClassDataModels.First();
             var batchId = Guid.NewGuid();
-            int subSamples = Config.ClassifierBootstrapSubSamples;
+            var subSamples = Config.ClassifierBootstrapSubSamples;
             var samples = singleClassDataModel.Inputs.Length;
             var bootstrapValidation = new Bootstrap(samples, subSamples);
             var classifierModels = new List<ClassifierModel>();
             var attributes = DecisionVariable.FromData(singleClassDataModel.Inputs);
 
-            KeyValuePair<double, DecisionTree> bestModel = new KeyValuePair<double, DecisionTree>(10, null);
+            var bestModel = new KeyValuePair<double, DecisionTree>(10, null);
 
-            bootstrapValidation.Fitting = delegate (int[] indicesTrain, int[] indicesValidation)
+            bootstrapValidation.Fitting = delegate(int[] indicesTrain, int[] indicesValidation)
             {
                 var trainingInputs = singleClassDataModel.Inputs.Get(indicesTrain);
                 var trainingOutputs = singleClassDataModel.Outputs.Get(indicesTrain);
@@ -151,8 +150,8 @@ namespace MachineLearningActorSystem.Actors.Classifiers
                     },
                     HyperParameters = new HyperParametersModel
                     {
-                        SplitStep = (int)_bestParameters.Single(x => x.Name == "splitstep").Value,
-                        Join = (int)_bestParameters.Single(x => x.Name == "join").Value
+                        SplitStep = (int) _bestParameters.Single(x => x.Name == "splitstep").Value,
+                        Join = (int) _bestParameters.Single(x => x.Name == "join").Value
                     },
                     TrainingError = trainingError,
                     ValidationError = validationError,
@@ -160,27 +159,23 @@ namespace MachineLearningActorSystem.Actors.Classifiers
                 });
 
                 if (bestModel.Key > validationError)
-                {
                     bestModel = new KeyValuePair<double, DecisionTree>(validationError, tree);
-                }
 
                 return new BootstrapValues(trainingError, validationError);
             };
 
             var bsResult = bootstrapValidation.Compute();
 
-            logger.Info($"\n{StringHelper.PrintValidationResultString(classifierModels, singleClassDataModel.Name, bsResult)}");
-
-            using (var db = new LiteDatabase(@".\Resources\MlAsData.db"))
-            {
-                var classifierModelCollection = db.GetCollection<ClassifierModel>("ClassifierModel");
-                classifierModelCollection.Insert(classifierModels);
-            }
-
+            Console.Write(
+                $"{StringHelper.PrintValidationResultString(classifierModels, singleClassDataModel.Name, bsResult)}\n");
+            classifiers.ClassifierModels.AddRange(classifierModels);
+            XmlHelper.SaveClassifiers(classifiers);
+            logger.Info("Bootstrap Training complete");
             return new ClassifierResultEvent(bestModel.Value, bestModel.Key, "BootStrap", batchId.ToString());
         }
 
-        DecisionTree TrainParameters(DecisionVariable[] attributes, int numberOfClasses, double[][] trainingInputs, int[] trainingOutputs)
+        private DecisionTree TrainParameters(DecisionVariable[] attributes, int numberOfClasses,
+            double[][] trainingInputs, int[] trainingOutputs)
         {
             DecisionTree tree = null;
 
@@ -188,20 +183,20 @@ namespace MachineLearningActorSystem.Actors.Classifiers
             {
                 GridSearchRange[] ranges =
                 {
-                        new GridSearchRange("join", new double[] { 1, 3, 8 } ),
-                        new GridSearchRange("splitstep", new double[] { 1, 3, 8 } )
-                    };
+                    new GridSearchRange("join", new double[] {1, 3, 8}),
+                    new GridSearchRange("splitstep", new double[] {1, 3, 8})
+                };
 
                 var gridsearch = new GridSearch<DecisionTree>(ranges)
                 {
-                    Fitting = delegate (GridSearchParameterCollection parameters, out double error)
+                    Fitting = delegate(GridSearchParameterCollection parameters, out double error)
                     {
                         var gridsearchTree = new DecisionTree(attributes, numberOfClasses);
 
                         var teacher = new C45Learning(gridsearchTree)
                         {
-                            Join = (int)parameters["join"].Value,
-                            SplitStep = (int)parameters["splitstep"].Value
+                            Join = (int) parameters["join"].Value,
+                            SplitStep = (int) parameters["splitstep"].Value
                         };
 
                         teacher.Learn(trainingInputs, trainingOutputs);
@@ -220,8 +215,8 @@ namespace MachineLearningActorSystem.Actors.Classifiers
                 tree = new DecisionTree(attributes, numberOfClasses);
                 var teacher = new C45Learning(tree)
                 {
-                    SplitStep = (int)_bestParameters.Single(x => x.Name == "splitstep").Value,
-                    Join = (int)_bestParameters.Single(x => x.Name == "join").Value
+                    SplitStep = (int) _bestParameters.Single(x => x.Name == "splitstep").Value,
+                    Join = (int) _bestParameters.Single(x => x.Name == "join").Value
                 };
 
                 teacher.Learn(trainingInputs, trainingOutputs);

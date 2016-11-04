@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MachineLearningActorSystem.Models
 {
+    [Serializable]
     public class SingleClassDataModel
     {
         public int Id { get; set; }

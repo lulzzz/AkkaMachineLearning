@@ -2,6 +2,19 @@
 {
     public class FileClassifierDataSourceEvent
     {
+        public enum ClassifierMethod
+        {
+            DECISIONTREECV,
+            DECISIONTREEBS,
+            NAIVEBAYESCV,
+            NAIVEBAYESBS,
+            KNNCV,
+            KNNBS,
+            NEUROCV,
+            NEUROBS,
+            FINDBEST
+        }
+
         public FileClassifierDataSourceEvent(string dataSourceFilePath, string classifier)
         {
             DataSourceFilePath = dataSourceFilePath;
@@ -29,23 +42,9 @@
                     Classifier = ClassifierMethod.FINDBEST;
                     break;
             }
-            
         }
 
         public string DataSourceFilePath { get; set; }
         public ClassifierMethod Classifier { get; set; }
-
-        public enum ClassifierMethod
-        {
-            DECISIONTREECV,
-            DECISIONTREEBS,
-            NAIVEBAYESCV,
-            NAIVEBAYESBS,
-            KNNCV,
-            KNNBS,
-            NEUROCV,
-            NEUROBS,
-            FINDBEST
-        }
     }
 }

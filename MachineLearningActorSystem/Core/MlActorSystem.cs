@@ -1,25 +1,25 @@
-﻿namespace MachineLearningActorSystem.Core
-{
-    using Actors.Classifiers;
-    using Actors.Explorers;
-    using Akka.Actor;
-    using Events;
-    using log4net;
-    using System;
+﻿using System;
+using Akka.Actor;
+using log4net;
+using MachineLearningActorSystem.Actors.Classifiers;
+using MachineLearningActorSystem.Actors.Explorers;
+using MachineLearningActorSystem.Events;
 
+namespace MachineLearningActorSystem.Core
+{
     public sealed class MlActorSystem
     {
         private static ActorSystem ClusterSystem;
         private static IActorRef _classifierCoordinatorActor;
         private static IActorRef _explorerCoordinatorActor;
+
         public static IActorRef ClassifierCoordinatorActor
         {
             get
             {
-                if (Config.CoreEnableClassifierActors && _classifierCoordinatorActor == null)
-                {
-                    _classifierCoordinatorActor = ClusterSystem.ActorOf(Props.Create<ClassifierCoordinatorActor>(), typeof(ClassifierCoordinatorActor).Name);
-                }
+                if (Config.CoreEnableClassifierActors && (_classifierCoordinatorActor == null))
+                    _classifierCoordinatorActor = ClusterSystem.ActorOf(Props.Create<ClassifierCoordinatorActor>(),
+                        typeof(ClassifierCoordinatorActor).Name);
 
                 return _classifierCoordinatorActor;
             }
@@ -29,10 +29,9 @@
         {
             get
             {
-                if (Config.CoreEnableExplorerActors && _explorerCoordinatorActor == null)
-                {
-                    _explorerCoordinatorActor = ClusterSystem.ActorOf(Props.Create<ExplorerCoordinatorActor>(), typeof(ExplorerCoordinatorActor).Name);
-                }
+                if (Config.CoreEnableExplorerActors && (_explorerCoordinatorActor == null))
+                    _explorerCoordinatorActor = ClusterSystem.ActorOf(Props.Create<ExplorerCoordinatorActor>(),
+                        typeof(ExplorerCoordinatorActor).Name);
 
                 return _explorerCoordinatorActor;
             }
@@ -48,14 +47,12 @@
             var shutdownEvent = new ShutdownEvent();
 
             if (Config.CoreEnableClassifierActors)
-            {
-                ClassifierCoordinatorActor.GracefulStop(TimeSpan.FromSeconds(shutdownEvent.GetTimeoutSeconds()), shutdownEvent).Wait();
-            }
+                ClassifierCoordinatorActor.GracefulStop(TimeSpan.FromSeconds(shutdownEvent.GetTimeoutSeconds()),
+                    shutdownEvent).Wait();
 
             if (Config.CoreEnableExplorerActors)
-            {
-                ExplorerCoordinatorActor.GracefulStop(TimeSpan.FromSeconds(shutdownEvent.GetTimeoutSeconds()), shutdownEvent).Wait();
-            }
+                ExplorerCoordinatorActor.GracefulStop(TimeSpan.FromSeconds(shutdownEvent.GetTimeoutSeconds()),
+                    shutdownEvent).Wait();
 
             ClusterSystem.Terminate().Wait();
         }
@@ -64,7 +61,7 @@
         {
             var logger = LogManager.GetLogger(typeof(MlActorSystem));
 
-            string akkaClusterError = string.Empty;
+            var akkaClusterError = string.Empty;
 
             try
             {
@@ -73,7 +70,7 @@
             catch (Exception ex)
             {
                 akkaClusterError = "Error registering Akka Cluster";
-                akkaClusterError = string.Format("[{0}:{1}]", akkaClusterError, ex.ToString());
+                akkaClusterError = string.Format("[{0}:{1}]", akkaClusterError, ex);
             }
 
             if (!string.IsNullOrEmpty(akkaClusterError))
@@ -89,7 +86,7 @@
         {
             var logger = LogManager.GetLogger(typeof(MlActorSystem));
 
-            string akkaClusterError = string.Empty;
+            var akkaClusterError = string.Empty;
 
             try
             {
@@ -98,7 +95,7 @@
             catch (Exception ex)
             {
                 akkaClusterError = "Error unregistering Akka Cluster";
-                akkaClusterError = $"[{akkaClusterError}:{ex.ToString()}]";
+                akkaClusterError = $"[{akkaClusterError}:{ex}]";
             }
 
             if (!string.IsNullOrEmpty(akkaClusterError))
@@ -113,19 +110,15 @@
         {
             var logger = LogManager.GetLogger(typeof(MlActorSystem));
 
-            string akkaClusterError = string.Empty;
+            var akkaClusterError = string.Empty;
 
             try
             {
                 if (Config.CoreEnableClassifierActors)
-                {
                     ClassifierCoordinatorActor.Tell(Kill.Instance);
-                }
 
                 if (Config.CoreEnableExplorerActors)
-                {
                     ExplorerCoordinatorActor.Tell(Kill.Instance);
-                }
 
                 ClusterSystem.Terminate();
             }
