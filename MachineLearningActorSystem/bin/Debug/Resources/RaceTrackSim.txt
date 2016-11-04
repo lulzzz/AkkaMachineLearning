@@ -1,3 +1,0 @@
-racetrack.jar was converted to RaceTrackSim.dll using IKVM.NET.
-
-IKVM.NET is a java engine that runs in .NET
