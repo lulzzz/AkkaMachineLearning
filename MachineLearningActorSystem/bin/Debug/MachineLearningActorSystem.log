@@ -1,0 +1,143 @@
+28.10.2016 12:48:15,720 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+28.10.2016 12:48:15,720 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+28.10.2016 12:48:15,732 [12] INFO  - FileExplorerDataSourceEvent Received
+28.10.2016 12:48:39,917 [12] INFO  - RaceTrack Received
+28.10.2016 17:16:53,987 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+28.10.2016 17:16:53,987 [6] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+28.10.2016 17:16:54,000 [12] INFO  - FileExplorerDataSourceEvent Received
+28.10.2016 17:17:21,399 [12] INFO  - RaceTrack Received
+28.10.2016 18:20:42,244 [16] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+28.10.2016 18:20:42,243 [15] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+28.10.2016 18:20:42,257 [15] INFO  - FileExplorerDataSourceEvent Received
+28.10.2016 18:21:04,934 [15] INFO  - RaceTrack Received
+28.10.2016 21:27:07,165 [6] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+28.10.2016 21:27:07,165 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+28.10.2016 21:27:07,178 [12] INFO  - RaceTrackQLearningEvent Received
+28.10.2016 21:28:50,277 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+28.10.2016 21:28:50,277 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+28.10.2016 21:28:50,277 [6] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+28.10.2016 21:28:50,292 [12] INFO  - RaceTrackQLearningEvent Received
+28.10.2016 21:28:50,466 [12] INFO  - QRaceTrack Received
+28.10.2016 21:29:55,263 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+28.10.2016 21:29:55,263 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+28.10.2016 21:29:55,263 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+28.10.2016 21:29:55,275 [11] INFO  - RaceTrackQLearningEvent Received
+28.10.2016 21:29:55,433 [12] INFO  - QRaceTrack Received
+28.10.2016 21:32:58,456 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+28.10.2016 21:32:58,455 [6] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+28.10.2016 21:32:58,456 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+28.10.2016 21:32:58,471 [12] INFO  - RaceTrackQLearningEvent Received
+28.10.2016 21:32:58,634 [6] INFO  - QRaceTrack Received
+28.10.2016 21:34:30,479 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+28.10.2016 21:34:30,479 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+28.10.2016 21:34:30,479 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+28.10.2016 21:34:30,493 [12] INFO  - RaceTrackQLearningEvent Received
+28.10.2016 21:34:30,663 [11] INFO  - QRaceTrack Received
+28.10.2016 21:38:00,827 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+28.10.2016 21:38:00,827 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+28.10.2016 21:38:00,827 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+28.10.2016 21:38:00,842 [12] INFO  - RaceTrackQLearningEvent Received
+28.10.2016 21:38:01,013 [12] INFO  - QRaceTrack Received
+28.10.2016 23:34:13,361 [10] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+28.10.2016 23:34:13,361 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+28.10.2016 23:34:13,361 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+28.10.2016 23:34:13,374 [11] INFO  - RaceTrackQLearningEvent Received
+28.10.2016 23:34:13,545 [11] INFO  - QRaceTrack Received
+28.10.2016 23:35:18,815 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+28.10.2016 23:35:18,815 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+28.10.2016 23:35:18,815 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+28.10.2016 23:35:18,829 [12] INFO  - RaceTrackQLearningEvent Received
+28.10.2016 23:35:18,978 [12] INFO  - QRaceTrack Received
+28.10.2016 23:38:20,441 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+28.10.2016 23:38:20,441 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+28.10.2016 23:38:20,441 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+28.10.2016 23:38:20,454 [12] INFO  - RaceTrackQLearningEvent Received
+28.10.2016 23:38:20,611 [12] INFO  - QRaceTrack Received
+28.10.2016 23:41:30,625 [10] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+28.10.2016 23:41:30,625 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+28.10.2016 23:41:30,625 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+28.10.2016 23:41:30,638 [11] INFO  - RaceTrackQLearningEvent Received
+28.10.2016 23:41:30,788 [10] INFO  - QRaceTrack Received
+28.10.2016 23:45:09,162 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+28.10.2016 23:45:09,162 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+28.10.2016 23:45:09,162 [10] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+28.10.2016 23:45:09,175 [11] INFO  - RaceTrackQLearningEvent Received
+28.10.2016 23:45:09,323 [11] INFO  - QRaceTrack Received
+28.10.2016 23:46:48,867 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+28.10.2016 23:46:48,867 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+28.10.2016 23:46:48,867 [10] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+28.10.2016 23:46:48,882 [11] INFO  - RaceTrackQLearningEvent Received
+28.10.2016 23:46:49,026 [11] INFO  - QRaceTrack Received
+28.10.2016 23:47:38,676 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+28.10.2016 23:47:38,676 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+28.10.2016 23:47:38,676 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+28.10.2016 23:47:38,696 [12] INFO  - RaceTrackQLearningEvent Received
+28.10.2016 23:47:38,838 [12] INFO  - QRaceTrack Received
+28.10.2016 23:48:08,028 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+28.10.2016 23:48:08,028 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+28.10.2016 23:48:08,028 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+28.10.2016 23:48:08,041 [12] INFO  - RaceTrackQLearningEvent Received
+28.10.2016 23:48:08,185 [12] INFO  - QRaceTrack Received
+28.10.2016 23:53:01,138 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+28.10.2016 23:53:01,138 [14] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+28.10.2016 23:53:01,138 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+28.10.2016 23:53:01,155 [11] INFO  - RaceTrackQLearningEvent Received
+28.10.2016 23:53:01,294 [12] INFO  - QRaceTrack Received
+28.10.2016 23:54:03,207 [13] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackQLearningActor
+28.10.2016 23:54:03,207 [12] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor
+28.10.2016 23:54:03,207 [11] INFO  - Started
+- ActorPath: akka://ml-system/user/ExplorerCoordinatorActor/RaceTrackValueIterationActor
+28.10.2016 23:54:03,222 [12] INFO  - RaceTrackQLearningEvent Received
+28.10.2016 23:54:03,459 [11] INFO  - QRaceTrack Received

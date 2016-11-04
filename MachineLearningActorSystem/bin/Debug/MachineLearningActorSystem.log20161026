@@ -1,0 +1,4 @@
+26.10.2016 00:23:13,169 [6] ERROR - Failed to load data from file: .\Resources\racetrack.map. Error: Collection was modified; enumeration operation may not execute.
+26.10.2016 00:23:57,074 [13] ERROR - Failed to load data from file: .\Resources\racetrack.map. Error: Collection was modified; enumeration operation may not execute.
+26.10.2016 00:25:21,581 [11] ERROR - Failed to load data from file: .\Resources\racetrack.map. Error: Collection was modified; enumeration operation may not execute.
+26.10.2016 00:28:06,743 [11] ERROR - Failed to load data from file: .\Resources\racetrack.map. Error: Collection was modified; enumeration operation may not execute.
