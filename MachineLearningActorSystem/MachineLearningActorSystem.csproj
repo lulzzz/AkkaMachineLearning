@@ -225,32 +225,21 @@
   <ItemGroup>
     <Compile Include="Actors\BaseActor.cs" />
     <Compile Include="Models\Classifiers.cs" />
-    <Compile Include="RaceTrack\QAgentRun.cs" />
-    <Compile Include="RaceTrack\QAgentSettings.cs" />
-    <Compile Include="RaceTrack\QActions.cs" />
-    <Compile Include="RaceTrack\QAction.cs" />
     <Compile Include="Sandbox\NeuralNetworkActor.cs" />
     <Compile Include="Actors\Classifiers\KnnActor.cs" />
     <Compile Include="Actors\Classifiers\NaiveBayesActor.cs" />
     <Compile Include="Actors\Classifiers\DecisionTreeActor.cs" />
     <Compile Include="Actors\Classifiers\ClassifierCoordinatorActor.cs" />
     <Compile Include="Actors\Explorers\ExplorerCoordinatorActor.cs" />
-    <Compile Include="Actors\Explorers\RaceTrackQLearningActor.cs" />
     <Compile Include="Core\Config.cs" />
-    <Compile Include="Events\RaceTrackQLearningEvent.cs" />
     <Compile Include="RaceTrack\Action.cs" />
-    <Compile Include="RaceTrack\QAgent.cs" />
     <Compile Include="RaceTrack\Agent.cs" />
     <Compile Include="Sandbox\Class1.cs" />
-    <Compile Include="RaceTrack\QRaceTrack.cs" />
-    <Compile Include="RaceTrack\QRace.cs" />
     <Compile Include="Core\XmlHelper.cs" />
     <Compile Include="RaceTrack\Iteration.cs" />
     <Compile Include="RaceTrack\Race.cs" />
     <Compile Include="Sandbox\ReinforcementActor.cs" />
     <Compile Include="Actors\Explorers\RaceTrackValueIterationActor.cs" />
-    <Compile Include="RaceTrack\QState.cs" />
-    <Compile Include="RaceTrack\RaceTrackSimulator.cs" />
     <Compile Include="RaceTrack\State.cs" />
     <Compile Include="RaceTrack\StateType.cs" />
     <Compile Include="Core\MlActorSystem.cs" />
@@ -291,9 +280,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\QRacetrack.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\racetrack.jar">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -10,9 +10,6 @@ namespace MachineLearningActorSystem.Actors.Explorers
 {
     public class ExplorerCoordinatorActor : BaseActor
     {
-        private readonly IActorRef _raceTrackQLearningActor = Context.ActorOf(Props.Create<RaceTrackQLearningActor>(),
-            typeof(RaceTrackQLearningActor).Name);
-
         private readonly IActorRef _raceTrackValueIterationActor =
             Context.ActorOf(Props.Create<RaceTrackValueIterationActor>(), typeof(RaceTrackValueIterationActor).Name);
 
@@ -30,21 +27,6 @@ namespace MachineLearningActorSystem.Actors.Explorers
                 else
                 {
                     _raceTrackValueIterationActor.Tell(raceTrack);
-                }
-            });
-
-            Receive<RaceTrackQLearningEvent>(raceTrackQLearningEvent =>
-            {
-                logger.Info($"{raceTrackQLearningEvent.GetType().Name} Received");
-                var raceTrack = ReadQFile();
-                if ((raceTrack.Races != null) && (raceTrack.Races.Count > 0) && raceTrackQLearningEvent.PrintLastRun)
-                {
-                    Console.Write(raceTrack);
-                    logger.Info($"{raceTrack.GetType().Name} QLearning Results Printed");
-                }
-                else
-                {
-                    _raceTrackQLearningActor.Tell(raceTrack);
                 }
             });
         }
@@ -131,15 +113,6 @@ namespace MachineLearningActorSystem.Actors.Explorers
             }
 
             return null;
-        }
-
-        private QRaceTrack ReadQFile()
-        {
-            var raceTrack = XmlHelper.LoadQRaceTrack();
-
-            if (raceTrack != null)
-                return raceTrack;
-            return new QRaceTrack();
         }
     }
 }

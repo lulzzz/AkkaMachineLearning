@@ -50,45 +50,6 @@ namespace MachineLearningActorSystem.Core
             }
         }
 
-        public static QRaceTrack LoadQRaceTrack()
-        {
-            try
-            {
-                Logger.Info("QRacetrack load started...");
-                var qRaceTrack = Load<QRaceTrack>("QRacetrack");
-                Logger.Info("Done");
-                return qRaceTrack;
-            }
-            catch (Exception)
-            {
-                try
-                {
-                    var qRaceTrack = Load<QRaceTrack>("Resources\\QRacetrack");
-                    Logger.Info("Done");
-                    return qRaceTrack;
-                }
-                catch (Exception ex)
-                {
-                    Logger.Warn("Failed", ex);
-                    return null;
-                }
-            }
-        }
-
-        public static void SaveQRaceTrack(QRaceTrack qRaceTrack)
-        {
-            try
-            {
-                Logger.Info("QRacetrack save started...");
-                Save(qRaceTrack, "QRacetrack");
-                Logger.Info("Done");
-            }
-            catch (Exception ex)
-            {
-                Logger.Warn("Failed", ex);
-            }
-        }
-
         public static Classifiers LoadClassifiers()
         {
             try

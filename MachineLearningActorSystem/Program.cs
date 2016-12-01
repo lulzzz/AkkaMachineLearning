@@ -9,6 +9,8 @@ namespace MachineLearningActorSystem
 {
     internal class Program
     {
+        public static bool stop = false;
+
         private static void Main(string[] args)
         {
             XmlConfigurator.Configure();
@@ -107,11 +109,7 @@ namespace MachineLearningActorSystem
                         case "rq":
                             Console.Clear();
                             Console.WriteLine("QLearning selected.");
-                            Console.WriteLine("Press P to print past results or any other key to start a new run.");
-                            cmd = Console.ReadKey(false).KeyChar.ToString().ToLower();
-                            MlActorSystem.ExplorerCoordinatorActor.Tell(
-                                new RaceTrackQLearningEvent(cmd == "p"), null);
-                            actorstarted = true;
+                            Console.WriteLine("Disabled.");
                             break;
 
                         case "cdc":
@@ -138,8 +136,7 @@ namespace MachineLearningActorSystem
 
                 do
                 {
-                    Console.WriteLine("Ctrl+C to quit");
-                    Console.ReadKey();
+                    if (stop) return;
                 } while (true);
             }
         }
@@ -150,10 +147,19 @@ namespace MachineLearningActorSystem
             Console.WriteLine("Press any key to exit gracefully (may take a while if long process has started)");
             Console.WriteLine("OR press T key TWICE to stop immediately (may result in corrupt data)");
             var key = Console.ReadKey(false);
-            if (key.KeyChar.ToString().ToLower() == "t")
-                MlActorSystem.Stop();
-            else
-                MlActorSystem.Reaper();
+            try
+            {
+                if (key.KeyChar.ToString().ToLower() == "t")
+                    MlActorSystem.Reaper();
+                else
+                {
+                    MlActorSystem.Stop();
+                }
+                stop = true;
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }
